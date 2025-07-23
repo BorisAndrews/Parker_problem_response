@@ -1,0 +1,414 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,graphicx}
+\usepackage{epstopdf}
+\usepackage{xcolor}
+\usepackage{arydshln}
+\usepackage{listings}
+\usepackage{accents}
+\usepackage{bm}
+%% commute diagram
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+%for graphs align
+\usepackage{subcaption}
+%% commute diagram
+\usepackage{mathtools} 
+\usepackage{comment}
+%comment
+\usepackage{todonotes}
+\usepackage{bm}
+\setlength{\marginparwidth}{2cm} %
+%sort the citation
+\usepackage[sort]{cite}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{cleveref} 
+
+\newcommand{\pef}[1]{\todo[color=blue!30,inline]{{\bf PEF:} #1}}
+
+
+\newcommand{\R}{\bm{R}}  
+\newcommand{\Z}{\bm{Z}}
+\newcommand{\N}{\bm{N}}
+\newcommand{\Q}{\bm{Q}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{problem}{Problem}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand\div{\operatorname{div}}
+%\renewcommand\ker{\operatorname{ker}}
+%\newcommand\range{\operatorname{range}}
+\newcommand\coker{\mathrm{coker}}
+\newcommand\divh{\operatorname{div_{\mathrm{h}}}}
+\newcommand\curlh{\operatorname{curl_{\mathrm{h}}}}
+\newcommand\gradh{\operatorname{grad_{\mathrm{h}}}}
+\newcommand\curl{\operatorname{curl}}
+\newcommand\grad{\operatorname{grad}}
+\newcommand\rot{\operatorname{rot}}
+\newcommand\Grad{\mathrm{Grad}}
+\newcommand\Div{\mathrm{Div}}
+\newcommand\dev{\mathrm{dev}}
+\newcommand\Curl{\mathrm{Curl}}
+\newcommand\Rey{\operatorname{Re}}
+\newcommand\Rem{\operatorname{Re}_m}
+\newcommand{\dx}{\,\mathrm{d}x}
+\let\ker\undefined
+\DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\range}{range}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+%color box
+\usepackage{tcolorbox}
+\newtcolorbox{myblock}[1]{colback=blue!5!white, colframe=blue!75!black, fonttitle=\bfseries, title=#1}
+
+\newcommand{\patrick}[1]{\todo[inline,color=yellow!50, caption={2do}]{
+\begin{minipage}{\textwidth-4pt}
+\underline{Patrick:} #1
+\end{minipage}}}
+
+% review's comment
+\newcommand{\rv}[1]{%
+  \colorbox{gray!20}{%
+    \parbox{0.96\linewidth}{%
+      \small #1
+    }%
+  }%
+}
+%response
+\newcommand{\rp}{\textbf{\textcolor{blue}{Response: }}}
+%blue text for editing
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+% ------------------------------------------ %
+%                 START HERE                  %
+% ------------------------------------------ %
+
+\title{Response to Reviewer's Comments on the manuscript: Topology-preserving discretization for
+the magneto-frictional equations
+arising in the Parker conjecture} % Replace with appropriate title
+\author{Mingdong He, Patrick E.~Farrell, Kaibo Hu, Boris D.~Andrews} 
+
+\maketitle
+We sincerely thank the reviewer for the careful reading of our manuscript and for the thoughtful and constructive suggestions. We have done our best to address all comments in detail, as outlined below. Revisions in the manuscript have been highlighted in blue for clarity. Additionally, we made minor language improvements throughout the text to enhance readability; these changes are not color-marked. A summary of the main revisions and a point-by-point response to the reviewers, are provided below.
+%\tableofcontents
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+% -----------------------------------------------------
+% The following two environments (theorem, proof) are
+% where you will enter the statement and proof of your
+% first problem for this assignment.
+%
+% In the theorem environment, you can replace the word
+% "theorem" in the \begin and \end commands with
+% "exercise", "problem", "lemma", etc., depending on
+% what you are submitting. 
+% -----------------------------------------------------
+\section{Summary on Major Revisions}
+\begin{enumerate}
+    \item We have clarified the novelty of our work in the introduction, which has four aspects:
+    \begin{enumerate}
+        \item From our perspective, the broader contribution of this work (beyond the magneto-frictional equations) is to motivate \textbf{why structure-preserving schemes are needed}. In most settings, structure-preserving schemes are motivated by \emph{quantitative} improvements: for e.g.~the incompressible Stokes equations, using exactly divergence-free discretisations improves the error estimates, but standard schemes still give reasonable results. For the magneto-frictional equations, however, the improvement is \emph{qualitative}: the schemes that do not preserve helicity give completely the wrong answer.
+        \item For the magneto-frictional equations, this is the first Eulerian scheme that preserves the helicity,
+which is strongly desirable since it can avoid the mesh distortions introduced in
+Lagrangian methods.
+    \item  Our scheme can achieve arbitrary order in time. When Hu wrote Ref.\ 23, we did not have a general framework for developing structure-preserving discretizations in time; the approach in that work was derived by heuristic means. Since writing Ref.\ 23 we now understand this much better, and one of the fruits of this is that we can now generalize to arbitrary order in time.
+    \item  Another important novelty is our generalization of the notion of helicity and the Arnold inequality to the kind of domains that are the essential setting for the Parker conjecture.
+    \end{enumerate}
+    \item We have include more explanation of our scheme and how it connects with Ref.~23 and Ref.~2. 
+    \item We have reworded the topology of field lines to helicity, to avoid the confusion between the topology of the domain and the topology of the field lines. 
+\end{enumerate}
+
+Please find below a point-to-point response to each of the reviewer's comments.
+
+\section{Response to Reviewer 1}
+\begin{enumerate}
+    \item \rv{I expect the authors to add detailed references to
+Ref.\ 23 whenever they adopt considerations, techniques, and notations from that paper,
+whose lead author is even among the authors of the present paper.}
+
+\rp Fixed. We apologize for the confusion and we have added more details for our schemes. For spatial discretisation, we indeed follow Ref.\ 23, and we regret that our manuscript did not make this clear. We assure the Reviewer that our omission was not deliberate, however; we certainly did not mean to throw red herrings. 
+
+\pef{The text quoted here (and throughout the response) is out of sync with the main article. Please copy and paste \emph{all} text again once we have finalised our changes to the article.}
+
+\blue{
+We first introduce the spatial discretization, which is analogous to the work of \cite{huHelicityconservativeFiniteElement2021} for the incompressible MHD system. For the magnetic helicity to be well-defined on the discrete level, our scheme must preserve the magnetic Gauss law ($\div \bm B=0$) at least up to solver tolerances and machine precision. Therefore, we discretize the magnetic field $\bm B_h$ in the $H_0^h(\div)$ space (2.2b).} \blue{Since $\curl H_0^h(\curl)\subset H_0^h(\div)$, (1.4a) suggests that we discretize $\bm E_h$ in the $H_0^h(\curl)$ space. Additionally, if the initial condition satisfies $\div \bm B_0=0$, then $\div \bm B=0$ holds pointwise for every $t$. In the framework of finite element exterior calculus, the discretization can be of arbitrary order in space \cite{arnoldFiniteElementExterior2006}}. 
+
+For the time discretisation, we follow the Ref.\ 2. \blue{For the time discretization, to replicate the right physics, we need to preserve the conserved helicity (1.2) and the energy dissipation law (1.5). The general idea of designing numerical schemes to replicate the conservation/dissipation properties discretely in \cite{andrews2024enforcing} is to rewrite the conservation/dissipation laws as a time integral and then introduce associated test functions to recover the conservation/dissipation laws discretely. The associated test functions are auxiliary variables, and the discretisation of the time integral is implemented by finite-element-in-time. In this context, the two auxiliary variables for helicity-conservation and energy dissipation are $\bm j_h =\curl_h\bm B_h$ where $\curl_h$ is the $L^2$ adjoint operator of $\curl$, and $\bm H_h = \mathbb{Q}_c\bm B_h$, respectively. The idea of the auxiliary variables are not new, e.g.~\cite{huHelicityconservativeFiniteElement2021,LaakmannStructurepreservinghelicityconservingfinite2023}, but the time discretization introduced in \cite{andrews2024enforcing} can generalised to the arbitrary order in time. } 
+
+We believe that this clarifies how our scheme connects with Ref.\ 23 and Ref.\ 2. 
+
+    \item \rv{Title: What is “topology preserving”? The method is “helicity-preserving”! Also drop
+“Parker conjecture” from the title, because this is hardly addressed in the paper.} 
+
+\rp Fixed. The title has been changed to \blue{\textit{Helicity-preserving finite element discretisation for magnetic relaxation.}} 
+
+    \item \rv{“Contractible” is a concept from homotopy, but what matters in the context of the manuscript is co-homology. Therefore the authors should express all assumptions they
+make on the topology of $\Omega$ in terms of Betti numbers.}
+ 
+\rp \todo[inline]{Kaibo is going to fix this.} 
+
+\item \rv{Since $\bm B$ and $\bm H$ occur, maybe B should be called the “magnetic induction field” to distinguish it from the magnetic field $\bm H$}
+
+\rp Fixed. We have added a footnote for magnetic field $\bm B$ where it first appears. \blue{With a slight abuse of language consists in commonly, we call $\bm B$ the magnetic field, instead of $\bm H$. This is because the two fields are often proportional due to the constitutive relation.} We think this addresses such confusion since the abuse of this notation happens in other literature a lot. In this paper, $\bm H$ is the auxiliary variable and we do not intend to assign a physical meaning to it.
+
+\pef{I think the reviewer is right and that we should just do the right thing and do what the reviewer says.}
+
+\item \rv{I think (3.5b) can only be derived using (3.2b). Please explain.}
+
+\rp Fixed. We accept the Reviewer's suggestion and expanded our derivation
+    \blue{\begin{subequations}
+\begin{align}
+    \mathcal{H}_h - \mathcal{H}_h|_{t=0} &= 2 \int_0^t (\partial_t\bm{B}_h, \bm{A}_h) = - 2 \int_0^t (\curl \bm E_h, \bm A_h) \\
+    &= - 2 \int_0^t (\bm E_h, \bm B_h) = - 2\tau\int_0^t (\mathbb{Q}_c[(\bm j_h\times \bm H_h)\times \bm H_h], \bm B_h) \\
+    &= -2\tau\int_0^t((\bm j_h\times \bm H_h)\times \bm H_h, \mathbb{Q}_c\bm B_h) \\
+    &= -2\tau \int_0^t ((\bm j_h\times \bm H_h)\times \bm H_h, \bm H_h) = 0
+\end{align}
+\end{subequations}}
+
+\item \rv{Give a reference for the fact that Gauss collocation Runge--Kutta methods preserve
+quadratic invariants, of which the helicity is one specimen.}
+
+\rp Fixed. We added a reference to \blue{\cite[Sec.~IV.2.1 Theorem 2.1]{hairer2006geometric}}.
+\end{enumerate}
+
+
+
+\section{Response to Reviewer 2}
+\begin{enumerate}
+    \item \rv{Therefore, I’m wondering whether the authors’ generalized
+helicity can somehow be viewed a generalization of the $H^{BV}$ formula? That might give it 
+a physical interpretation.}
+
+\rp We really appreciate this suggestion since our nontrivial domain is topologically equivalent to a torus, which is the main motivation of Bevir--Gray helicity $H^{BV}$. We added: 
+\pef{Saying `We really appreciate this suggestion' makes it sound like we appreciate it more than those of the other reviewers, which is unwise. Reword}
+\blue{
+\begin{remark}
+    The physical interpretation of generalized helicity (3.8) is as follows: the generalized helicity includes the contribution of the harmonic form, which is an invariant that describes the magnetic flux through the cutting surfaces. This is similar to the Bevir--Gray helicity \cite{bevir1980relaxation}
+    \begin{equation}
+        \mathcal{H}_{BG} =\int_{\Omega} A\cdot B - \oint_{\gamma_1} A\cdot t_1\oint_{\gamma_2}A\cdot t_2. 
+    \end{equation}
+    where $\gamma_1$ and $\gamma_2$ are closed paths on $\partial\Omega$ traveling around the major and minor circumferences of the torus, and $t_i$($i=1, 2$) are associated tangent unit vectors of the path. For a more general helicity defined on a multiply connected domain in $\mathbb{R}^3$ with arbitrary topology, see \cite{mactaggart2019magnetic}.
+\end{remark}}
+
+\pef{Is it exactly the same, or is it different? If it is different we should point it out. This is important because we claim this as one of the main novelties of our paper.}
+
+\item \rv{Proof of Theorem 3.8: It seems to me that the last inequality is tacitly throwing away
+what could be a significant fraction of the energy in practical applications where there is
+a strong harmonic “guide field”. For example, refs [37-38] in the paper. If I understand
+correctly, one could strengthen (3.15) to
+\begin{equation}
+    |\Tilde{\mathcal{H}}|\leq C^{-1} (\|\bm B\|^2 - \|\bm B_R\|^2)
+\end{equation}
+} 
+
+\rp Fixed. Thank you so much for pointing this out. If we can choose $\bm A$ with a proper gauge $(\bm A, \bm B_H)=0$, then we can strengthen the inequality as the author pointed out. 
+
+This is equivalent to saying that 
+\begin{equation}
+    |\Tilde{\mathcal{H}}|\leq C^{-1} \|\bm B_R\|^2
+\end{equation}
+since $\|\bm B\|^2 = \|\bm B_R\|^2 +\|\bm B_H\|^2$ due to $\bm B_R \perp \bm B_H$. We added the following content after the proof of the generalized Arnold inequality: \blue{
+\begin{remark}
+    If we choose $\bm A$ so that $(\bm A, \bm B_H)=0$, then we have
+    \begin{equation}
+        |\tilde{\mathcal{H}}|\leq C^{-1}\|\bm B_R\|^2,
+    \end{equation}
+    so that the harmonic form does not arise in the generalized Arnold inequality.
+\end{remark}
+}
+
+\item \rv{In other words, is this SP
+finite-element method significantly more expensive than previous solvers?...So it would be good to know whether it would be
+practical (in future work) for the resolution to be increased.}
+
+\rp Our simulations were with 1,026,480 degrees of freedom. Our timestepping scheme is implicit, and so requires the solution of large nonlinear systems of equations at each timestep, and hence is more expensive than other approaches. For now we employ direct solvers for the arising linear systems, limiting our scalability. We have added a comment in the conclusions that in future work we will study the development of preconditioners to make our approach scalable to larger discretizations.
+
+\item \rv{I don’t know if this is
+something that can/should be resolved through the anonymous referee process, but I feel
+I should flag it up in case the installation instructions can be updated.} 
+
+\rp We apologize for this. The firedrake-zenodo process is less robust than we would like; it precisely records the software we used for the numerical results, but the firedrake installer sometimes fails to install older zenodo records after major updates. We have updated the install instructions and tested them on a new installation of Ubuntu. \todo[inline]{We need to check this.}
+\item \rv{A related question. The use of avfet modules in the source code for making the figures
+suggests to me that a “finite-element in time” discretisation is being used, whereas in L300
+of the paper it says that the implicit midpoint method was used for the computations.
+Could the authors clarify?}
+
+\rp These are both true. Many finite element in time schemes reduce to familiar ones at lowest order (e.g.~using continuous Lagrange elements of degree 1 in time reduces to implicit midpoint; with the right choice of quadrature weights, higher order versions reduce to Gauss--Legendre schemes.) We have changed our sentence to \blue{similarly, we choose lowest order in time for the time discretisation.}
+\end{enumerate}
+
+We appreciate Reviewer 2's small suggestions, and we have addressed them all. These suggestions improve our paper and make it easier to read for a broader audience.
+
+\begin{enumerate}
+    \item \rv{for a more recent mathematical work on the Parker problem, consider citing “Obstructions to topological relaxation for generic magnetic fields”, A. Enciso and D. Peralta-Salas,
+Arch. Rational Mech. Anal. 249, 6, 2025.}
+
+\rp We have now cited this paper in the introduction.
+
+\item \rv{L25: suggest “fluid diﬀusion” →“fluid viscosity”}
+
+\rp Fixed. 
+
+\item \rv{Firstly, the domain of the integral should be specified (to make clear that it is a
+volume integral).}
+
+\rp Fixed. We added the boundary condition \blue{$\bm B\cdot \bm n=0$.} 
+
+\item \rv{L48: here one could also cite “On the limitations of magneto-frictional relaxation”, A.
+Yeates, Geophs. Astrophys. Fluid. Dyn. 116, 305, 2022 who gives a review of magneto-
+friction in their introduction.}
+
+\rp We have now cited this paper in the introduction to the magneto-frictional equations.
+
+\item \rv{L60: suggest to reword this sentence, because the magnetic energy is not non-increasing
+in the original MHD system, only the total energy. (In particular, magnetic energy can be
+converted to and from kinetic or internal energy.)}
+
+\rp Fixed. We now write \blue{the magneto-frictional system assumes a special form of $\bm{u}$ to close the equations ($\bm{u}=\tau \bm{j}\times \bm{B}$). The choice of $\bm{u}$ ensures that the magnetic energy  $\mathcal{E}(t): = \int \bm B\cdot \bm B\dx$ is non-increasing, with rate}
+\begin{equation}\label{eqn:energy-equality}
+    \frac{1}{2} \partial_t \mathcal{E} = -\tau \int_{\Omega}|\bm j\times \bm B|^2 dx,
+\end{equation}
+\blue{thus avoiding the exchange of kinetic energy and magnetic energy permitted in the original MHD system.} 
+
+\item \rv{Eq (1.4): Again, there is an assumption of boundary conditions here that would be better
+clarified now rather than later.}
+
+\rp Fixed. We have added the boundary condition \blue{$\bm B\cdot \bm n = \bm 0$}. 
+
+\item \rv{L70: “The existence of tangential discontinuities of the stationary solutions of (1.3) is
+therefore equivalent to the Parker conjecture.” The Parker conjecture does not have
+a universally-agreed statement, and this is only true for the “force-free” version of the
+conjecture, as opposed to allowing more general magnetohydrostatic equilibria with gas
+pressure gradients. This should probably be clarified.}
+
+\rp We now write: The existence of tangential discontinuities of the stationary solutions of (1.4) is therefore equivalent to the \blue{force-free version of} the Parker conjecture \cite[Def.~2]{pontinParkerProblemExistence2020}:
+\blue{\emph{For almost all possible boundary flows the magnetic field develops tangential discontinuities during relaxation to a force-free equilibrium.}}
+
+\item \rv{L84: suggest to insert “method” after “mimetic Lagrangian”}
+
+\rp Fixed. 
+
+\item \rv{L113: spurious word “the”}
+
+\rp Fixed.
+
+\item \rv{L128: I think $\|\bm u\|_{0, 2} = \|\bm u\|$ should be the other way around?}
+
+\rp Fixed.
+
+\item \rv{Footnote 1 (p4), eq (3.1): I think there are too many curls on the right-hand side of the
+first equation.}
+
+\rp Fixed. We have removed the footnote and add details for explaining our scheme. 
+
+\item \rv{L234-5: Probably my stupidity, but I don’t understand why it follows that $\bm B_H$ remains
+constant?}
+
+\rp This is because $\partial_t \bm B$ is in the range so that $\bm B_H$ remains constant in the evolution.
+
+\item \rv{Eq (3.15): Is there a reason for not using $\mathcal{E}$ to denote the energy here, for consistency with
+earlier?}
+
+\rp Fixed. We have changed our notation: \begin{equation}
+            |\Tilde{\mathcal{H}}|  \le  C^{-1}{\color{blue}\mathcal{E}}.
+\end{equation}
+where $\mathcal{E}=\|\bm B\|^2$. 
+
+\item \rv{More explanation is required for the reader to understand the diﬀerence between
+the “trivial” and “nontrivial” experimental setups.}
+
+\rp Fixed. We now write: \blue{For trivial topology, Dirichlet boundary conditions are imposed on each face. For nontrivial topology, Dirichlet boundary conditions are imposed on the side faces while periodic on the top and bottom in the $z$-direction.}
+
+\item \rv{L302: Am I right that the magnitude of $\tau$ does nothing in this model other than rescale
+the time variable?}
+
+\rp Thank you for pointing this out. We aim to include adaptive time step strategies to accelerate the magnetic relaxation process, e.g.~change the $\tau$ as a function of $\|\bm B_h\|$ so that we can accelerate the relaxation. We will include this in our future work. 
+
+\item \rv{L307: This sentence is extremely brief (for a non-specialist in finite elements) and would
+benefit from at least a reference about how this projection is done.}
+
+\rp Fixed. We added more details. \blue{find $(\bm B_h, p_h)\in H_0^h(\div)\times L_0^{2,h}$ such that
+\begin{subequations}
+    \begin{align}
+        (\bm B_h, \bm C_h) - (p_h, \nabla\cdot \bm C_h)&= (\bm B_0, \bm C_h), \\
+        (q_h, \nabla\cdot \bm B_h)&=0.
+    \end{align}
+\end{subequations}
+For given initial condition $\bm B_0$, we have $\bm B_h$ such that $\nabla\cdot \bm B_h=0$ in $\Omega$ and $\bm B_h\cdot\bm n=0$ on $\partial\Omega$. We use such $\bm B_h$ for magnetic relaxation.}
+
+\item \rv{L320: Do we know the actual value of the Poincare constant C for simple rectangular
+domains? This could give an idea of the tightness of the Arnol’d inequality in each case.
+(Relates to my point 2 above.)}
+
+\rp In general computing the Poincar\'e constant involves solving an eigenproblem. However, it can be bounded in terms of the diameter $d$ of the domain: for bounded convex domains it is no more than $d/\pi$, and for nonconvex domains it is related to the diameter by a constant depending on how `non-convex' it is.
+
+\item \rv{Fig. 2: Can the authors explain why the helicity error increases at early times, before
+becoming completely flat? (Not greatly important as these are very small errors.)}
+
+\rp This might be the solver's issue; we currently have no idea, but we will consider this in the future if this error largely affects our numerical simulation. 
+\pef{We need a better answer here}
+\end{enumerate}
+
+\section{Response to Reviewer 3}
+
+\begin{enumerate}
+    \item \rv{ In my view, this manuscript is largely an extension of one of the author's previous works [23], which addresses a more complicated and more practical incompressible MHD system. The scheme (3.2) is largely identical to Algorithm 1 in [23]. The differences are twofold: (1) a much simpler equation for the velocity is considered in the current manuscript; (2) there is a type in (3.2c) as B in H(div) and its curl has to be computed weakly. The "projections" of auxiliary variables, which authors credited to [2], have been introduced in [23]. In addition, most properties in Section 3.1, if not all, have been proved in [23]. Therefore, I believe the novelty before Section 3.2 is very limited....The only novelty of this manuscript lies in Section 3.2, which extends Section 3.1 to a special non-contractible domain. One can argue the novelty lies in the introduction of a generalized helicity, i.e., Definition 3.5. The rest of the proof follows with the standard techniques from the authors' previous work such as [23]. This again shows the novelty is quite limited in the manuscript.}
+
+\rp We apologize for the confusion and we have rewritten our introduction to clarify the novelty of our work. The novelties of our work are as follows:
+    \begin{enumerate}
+        \item We think the most important contribution of this work is to address the \textbf{fundamental question} of \textbf{why we need a structure-preserving scheme}. Even though there are many papers describing how to design a structure-preserving scheme, the question of why we need it is not addressed. Our work provides a striking example where to obtain a meaningful solution, it is crucial that we need to preserve the helicity on the discrete level. We have thus added the following sentence to our introduction: \blue{Although many numerical schemes have been proposed, most are designed for model problems and are developed primarily from mathematical and numerical analysis perspectives. However, the fundamental question of why structure preservation is important, and what role it plays in computations, is often not directly addressed in these works. A key contribution of this work is in demonstrating that, to obtain meaningful numerical solutions for this MHD system, it is crucial that one conserves helicity on the discrete level.} 
+        \item This is the first Eulerian scheme that preserves the helicity for the magnetic relaxation problem, which is strongly desirable since it can avoid the mesh distortion compared to Lagrangian methods, which dominate in the astrophysics community. We have thus addded the following sentence to our introduction: \blue{This is the first helicity-preserving Eulerian finite element method for this problem.}
+        \item The time discretisation of the scheme proposed in Ref.23 is restricted to low-order convergence in time; we did not have the unifying perspective we now possess. One substantial consequence of this is that our scheme can achieve arbitrary order in time, as well as space.  
+        \item We further generalize the helicity and Arnold inequality to a nontrivial domain, which is the setting of the Parker conjecture. As our scheme works for both trivial and nontrivial domains, has attractive structure-preserving properties, and can achieve arbitrary order in time, and thus it is an ideal tool for astrophysics to investigate the Parker conjecture in the future. Our scheme also provides a good motivation for designing a discontinuity detector for the steady state $\bm B_{\infty}$ in the future, since this needs to build on the fact that we can get a correct steady state via correct numerical evolution. Otherwise, it is meaningless to detect the singularities of a wrong solution via an incorrect evolution. 
+    \end{enumerate}
+    We clarify our scheme and its connections with Ref.\ 23 and Ref.\ 2: we know that using the auxiliary variables is not new, but the framework proposed in Ref.\ 2 has generalized the time discretization to arbitrary order in time, and we successfully applied it to the magnetic relaxation problem. This is not a trivial reduction of the scheme proposed in Ref.\ 23.  We have added the following to explain how we arrive at our scheme via spatial and time discretisation, respectively: \blue{
+We first introduce the spatial discretization, which is the same as \cite{huHelicityconservativeFiniteElement2021}. For the magnetic helicity to be well-defined on the discrete level, our scheme must preserve the magnetic Gauss law ($\div \bm B=0$) at least up to solver tolerances and machine precision. Therefore, we discretize the magnetic field $\bm B_h$ in the $H_0^h(\div)$ space (2.2b).} \blue{Since $\curl H_0^h(\curl)\subset H_0^h(\div)$, (1.4a) implies that we choose to discretize $\bm E_h$ in the $H_0^h(\curl)$ space. Additionally, if the initial condition satisfies $\div \bm B_0=0$, then $\div \bm B=0$ holds pointwisely for every $t$. In the famework of finite element exterior calculus, the discretization can be of arbitrary order in space \cite{arnoldFiniteElementExterior2006}}. 
+\blue{For the time discretization, to replicate the right physics, we need to preserve the conserved helicity (1.2) and the energy disspation law (1.5). The general idea of designing numerical schemes to replicate the conservation/dissipation properties discretley in \cite{andrews2024enforcing} is to rewrite the conservation/dissipation laws as a time integral and then introduce associated test functions to recover the conservation/dissipation laws discretely. The associated test functions are auxiliary variables, and the discretisation of the time integral is implemented by finite-element-in-time. In this context, the two auxiliary variables for helicity-conservation and energy dissipation are $\bm j_h =\curl_h\bm B_h$ where $\curl_h$ is the $L^2$ adjoint operator of $\curl$, and $\bm H_h = \mathbb{Q}_c\bm B_h$, respectively. The idea of the auxiliary variables are not new, e.g.~\cite{huHelicityconservativeFiniteElement2021,LaakmannStructurepreservinghelicityconservingfinite2023}, but the time discretization introduced in \cite{andrews2024enforcing} can generalised to the aribitray order in time. } We believe that this clarifies how our scheme connects with Ref.\ 23 and Ref.\ 2. 
+
+We have also fixed the typo: \blue{$(\bm{j}_h, \bm{K}_h) = (\bm{B}_h, \curl\bm{K}_h)$} so that the curl now acts on the right variable.
+
+\item \rv{The whole manuscript is written in a very unusual and somewhat confusing way. Both the abstract and introduction sounds like the manuscript directly addresses the Parker problem. However, there is no physically meaningful study performed by the authors for the Parker problem. The only numerical example is a case from [36], which however has nothing to do with the Parker problem. I found this is very puzzling, given that the authors are aware of the correct setting of the Parker problem like [33, Fig. 1] as pointed out on Page 6. However, they choose such a non-physical test case to demonstrate their scheme (further details below).}
+
+\rp We apologize again for the confusion about the topology of the field lines and the topology of the domain. The test case from [36] was chosen as a benchmark with nontrivial helicity to illustrate the structure-preserving properties of our scheme. The test case from [36] is also an important physical example. We reword our expression so there is no abuse of the topology of the field lines and the topology of the domain. 
+
+\item \rv{To demonstrate the advantage of their scheme, the authors modify a case found in [36]. There are many issues in this modified test:   
+First, this test was considered near the origin as a toroidal field in [36]. The authors claimed this is a "nontrivial" topology on Page 9. But the non-trivial field configuration is not the non-trivial topology (i.e., non-contractible domain) addressed by the manuscript. This is very confusing. Second, to show the advantage of their scheme, the authors apply a periodic boundary condition to this problem, which was not intended in [36]. This is obvious from (4.1) and Figures 6 and 7, that the B field decays so fast in the z direction and a periodic boundary condition makes little difference. Finally, to echo the previous point, the periodic boundary condition in this setting is meaningless as it is not a setup for the Parker problem where a dominant B field should be along the periodic direction.}
+
+\rp In [36], the field is described as having "nontrivial topology," referring to its structure near the origin. In our manuscript, "nontrivial topology" was intended to describe the non-contractible topology of the domain. To avoid confusion, we have revised the wording (e.g., to helicity when it refers to the topology of the field lines) and carefully reviewed the manuscript to clearly distinguish between the topology of the domain and that of the field. For example, the description for Hopf fibration has been changed to \blue{nontrivial helicity} instead of nontrivial topology.
+
+\item \rv{I do not see the footnote 1 has anything to do with the paper, at least not with (3.2) as it claimed. }
+
+\rp We have removed the footnote and added more explanation of how we arrived at our scheme. 
+
+\item \rv{The trivial topology in the numerical section is never defined. I assume it is a case without periodic boundary condition. But providing more details is desired. Ironically, the trivial topology is a meaningful physical test considered in [36], while the non-trivial one is not. }
+
+\rp Fixed. Thank you so much for pointing it out. We have added the followings in Sec. 3.2: \blue{The de~Rham complex (2.2a) does not only tell the relationship between the function spaces and differential operators, it also encodes the topology of the domain $\Omega$.}...\blue{On the contrary, if we choose Dirichlet boundary conditions on each faces, it yields a trivial topology and our helicity is well-defined.} We also recall this definition in our numerical experiments in Sec. 4: \blue{For trivial topology, the boundary conditions are Dirichlet on each face. For nontrivial topology, the boundary conditions are Dirichlet on the side faces while periodic on the top and bottom in the $z$-direction.}
+
+\item \rv{The paper is very short, at only 13 pages excluding the references. While a short paper is not an issue for a work of significant impact, much of its content appears to be incremental. As a result, I find the overall contribution of the paper to be quite limited.
+}
+
+\rp Again, for us, the most exciting aspect of this work is a \emph{compelling} physical example where structure preservation is \emph{crucial} for getting a reasonable numerical solution. We hope that this example will be of broader value to the SISC community.
+\end{enumerate}
+
+\clearpage
+\bibliography{ref}
+\bibliographystyle{siam}
+
+\end{document}
