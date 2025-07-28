@@ -34,8 +34,7 @@
 \usepackage{cleveref} 
 
 \newcommand{\pef}[1]{\todo[color=blue!30,inline]{{\bf PEF:} #1}}
-\newcommand{\bda}[1]{\todo[color=green!30,inline]{{\bf BDA:} #1}}
-
+\newcommand{\bda}[1]{\todo[color=orange!30,inline]{{\bf BDA:} #1}}
 
 \newcommand{\R}{\bm{R}}  
 \newcommand{\Z}{\bm{Z}}
@@ -76,11 +75,6 @@
 %color box
 \usepackage{tcolorbox}
 \newtcolorbox{myblock}[1]{colback=blue!5!white, colframe=blue!75!black, fonttitle=\bfseries, title=#1}
-
-\newcommand{\patrick}[1]{\todo[inline,color=yellow!50, caption={2do}]{
-\begin{minipage}{\textwidth-4pt}
-\underline{Patrick:} #1
-\end{minipage}}}
 
 % review's comment
 \newcommand{\rv}[1]{%
@@ -306,7 +300,8 @@ pressure gradients. This should probably be clarified.}
 \item \rv{Footnote 1 (p4), eq (3.1): I think there are too many curls on the right-hand side of the
 first equation.}
 
-\rp Fixed. We have removed the footnote and add details for explaining our scheme. Please see Sec. 3 of diff.pdf. 
+\rp Fixed.
+We have removed the footnote and add details for explaining our scheme. Please see Sec. 3 of diff.pdf. 
 
 \item \rv{L234-5: Probably my stupidity, but I don’t understand why it follows that $\bm B_H$ remains
 constant?}
@@ -321,12 +316,23 @@ earlier?}
 \item \rv{More explanation is required for the reader to understand the diﬀerence between
 the “trivial” and “nontrivial” experimental setups.}
 
-\rp Fixed. Please see Sec. 4 of diff.pdf. 
+\rp Fixed.
+Please see Sec.~4 of diff.pdf. 
 
 \item \rv{L302: Am I right that the magnitude of $\tau$ does nothing in this model other than rescale
 the time variable?}
 
 \rp Thank you for pointing this out. We aim to include adaptive time step strategies to accelerate the magnetic relaxation process, e.g.~change the $\tau$ as a function of $\|\bm B_h\|$ so that we can accelerate the relaxation. We will include this in our future work. 
+
+\bda{To be honest, I agree with this comment.
+
+\quad The simulations use $\tau = 100$ and a timestep $\Delta t = 10$; using $\tau = 1$ and a timestep $\Delta t = 1000$ would yield exactly the same results \emph{(which, speaking of, is such a large timestep, no?)}.
+Regardless, it doesn't really make sense to me to vary both.
+Personally, my call would be just to remove $\tau$ altogether from the manuscript and say the simulations use $\Delta t = 1000$---the numerical results should be identical---however I understand that's a touch radical, so happy to hear other people's perspectives!
+
+\quad N.B. I wouldn't say varying $\tau$ is adaptive timestepping either.
+Sure it's \emph{equivalent} to adaptive timestepping, I would only really call it adaptive timestepping if you vary $\Delta t$.
+Furthermore, I think varying $\Delta t$ would be much more robust: if I double $\tau$, $\bm u$ should double (making the solver take longer to converge); if I double $\Delta t$, it should not.}
 
 \item \rv{L307: This sentence is extremely brief (for a non-specialist in finite elements) and would
 benefit from at least a reference about how this projection is done.}
@@ -342,7 +348,8 @@ domains? This could give an idea of the tightness of the Arnol’d inequality in
 \item \rv{Fig. 2: Can the authors explain why the helicity error increases at early times, before
 becoming completely flat? (Not greatly important as these are very small errors.)}
 
-\rp This might be the solver's issue; we currently have no idea, but we will consider this in the future if this error largely affects our numerical simulation. 
+\rp This might be the solver's issue;
+we currently have no idea, but we will consider this in the future if this error largely affects our numerical simulation. 
 \pef{We need a better answer here}
 \end{enumerate}
 
@@ -368,16 +375,16 @@ We have also fixed the typo: \blue{$(\bm{j}_h, \bm{K}_h) = (\bm{B}_h, \curl\bm{K
 
 \rp We apologize again for the confusion about the topology of the field lines and the topology of the domain. The test case from [36] was chosen as a benchmark with nontrivial helicity to illustrate the structure-preserving properties of our scheme. The test case from [36] is also an important physical example. We reword our expression so there is no abuse of the topology of the field lines and the topology of the domain. Please see Sec. 4 of diff.pdf. 
 
-\item \rv{To demonstrate the advantage of their scheme, the authors modify a case found in [36]. There are many issues in this modified test:   
+\item \rv{To demonstrate the advantage of their scheme, the authors modify a case found in [36]. There are many issues in this modified test:  
 First, this test was considered near the origin as a toroidal field in [36]. The authors claimed this is a "nontrivial" topology on Page 9. But the non-trivial field configuration is not the non-trivial topology (i.e., non-contractible domain) addressed by the manuscript. This is very confusing. Second, to show the advantage of their scheme, the authors apply a periodic boundary condition to this problem, which was not intended in [36]. This is obvious from (4.1) and Figures 6 and 7, that the B field decays so fast in the z direction and a periodic boundary condition makes little difference. Finally, to echo the previous point, the periodic boundary condition in this setting is meaningless as it is not a setup for the Parker problem where a dominant B field should be along the periodic direction.}
 
-\rp In [36], the field is described as having "nontrivial topology," referring to its structure near the origin. In our manuscript, "nontrivial topology" was intended to describe the non-contractible topology of the domain. To avoid confusion, we have revised the wording (e.g., to helicity when it refers to the topology of the field lines) and carefully reviewed the manuscript to clearly distinguish between the topology of the domain and that of the field.  
+\rp In [36], the field is described as having ``nontrivial topology'', referring to its structure near the origin. In our manuscript, ``nontrivial topology'' was intended to describe the non-contractible topology of the domain. To avoid confusion, we have revised the wording (e.g.~to helicity when it refers to the topology of the field lines) and carefully reviewed the manuscript to clearly distinguish between the topology of the domain and that of the field.  
 
-\item \rv{I do not see the footnote 1 has anything to do with the paper, at least not with (3.2) as it claimed. }
+\item \rv{I do not see the footnote 1 has anything to do with the paper, at least not with (3.2) as it claimed.}
 
 \rp We have removed the footnote and added more explanation of how we arrived at our scheme. 
 
-\item \rv{The trivial topology in the numerical section is never defined. I assume it is a case without periodic boundary condition. But providing more details is desired. Ironically, the trivial topology is a meaningful physical test considered in [36], while the non-trivial one is not. }
+\item \rv{The trivial topology in the numerical section is never defined. I assume it is a case without periodic boundary condition. But providing more details is desired. Ironically, the trivial topology is a meaningful physical test considered in [36], while the non-trivial one is not.}
 
 \rp Fixed. Thank you so much for pointing it out. We have added the followings in Sec. 3.2: \blue{The de~Rham complex (2.2a) does not only tell the relationship between the function spaces and differential operators, it also encodes the topology of the domain $\Omega$.}...\blue{For a topologically trivial domain (Betti numbers ($\beta_0, \beta_1, \beta_2, \beta_3) = (1, 0, 0, 0)$), the helicity is well-defined.} We also recall this definition in our numerical experiments in Sec. 4: \blue{For trivial topology, the boundary conditions are Dirichlet on each face. For nontrivial topology, the boundary conditions are Dirichlet on the side faces while periodic on the top and bottom in the $z$-direction.}
 
