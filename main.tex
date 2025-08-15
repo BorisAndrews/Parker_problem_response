@@ -245,7 +245,6 @@ In our case, we used continuous Lagrange elements of degree one in time, which r
 
 %\bda{It's a bit of work, but we could just switch the code over to use Irksome.}
 
-
 %These are both true. Many finite element in time schemes reduce to familiar ones at lowest order (e.g.~using continuous Lagrange elements of degree 1 in time reduces to implicit midpoint; with the right choice of quadrature weights, higher order versions reduce to Gauss--Legendre schemes.) Please see Sec. 4 of diff.pdf. 
 \end{enumerate}
 
@@ -339,12 +338,11 @@ eﬀect on the evolution.}
 \bda{To be honest, I agree with this comment.
 
 \quad The simulations use $\tau = 100$ and a timestep $\Delta t = 10$; using $\tau = 1$ and a timestep $\Delta t = 1000$ would yield exactly the same results \emph{(which, speaking of, is such a large timestep, no?)}.
-Regardless, it doesn't really make sense to me to vary both.
-Personally, my call would be just to remove $\tau$ altogether from the manuscript and say the simulations use $\Delta t = 1000$---the numerical results should be identical---however I understand that's a touch radical, so happy to hear other people's perspectives!
+Regardless, I guess it doesn't really make sense to me to vary both.
+Personally, my call would be just to remove $\tau$ altogether from the manuscript and say the simulations use $\Delta t = 1000$---the numerical results should be identical---however I understand that's a touch radical and last minute, so happy to leave it!
+If it's common for whatever reason in the literature to include a $\tau$, then so be it.
 
-\quad N.B. I wouldn't say varying $\tau$ is adaptive timestepping either.
-Sure it's \emph{equivalent} to adaptive timestepping, I would only really call it adaptive timestepping if you vary $\Delta t$.
-Furthermore, I think varying $\Delta t$ would be much more robust: if I double $\tau$, $\bm u$ should double (making the solver take longer to converge); if I double $\Delta t$, it should not.}
+\quad N.B. Since both varying $\tau$ and varying $\Delta t$ are equivalent, I'd just quickly note here for the future that I reckon the latter would be a little more computationally robust: if I double $\tau$, $\bm u$ should double (making the solver take longer to converge); if I double $\Delta t$, it should not.}
 
 \item \rv{L307: This sentence is extremely brief (for a non-specialist in finite elements) and would
 benefit from at least a reference about how this projection is done.}
